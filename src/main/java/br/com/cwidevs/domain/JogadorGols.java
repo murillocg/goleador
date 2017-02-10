@@ -1,27 +1,14 @@
 package br.com.cwidevs.domain;
 
-import org.springframework.data.annotation.Id;
-
 /**
  *
  * @author murillo.goulart
  */
 public class JogadorGols {
     
-    @Id
-    private Long id;    
-    
     private Jogador jogador;
     
     private Integer numeroGols; 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Jogador getJogador() {
         return jogador;

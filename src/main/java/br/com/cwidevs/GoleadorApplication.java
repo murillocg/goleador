@@ -26,14 +26,20 @@ public class GoleadorApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         
         Jogador murillo = new Jogador();
-        murillo.setId(1L);
         murillo.setNome("Murillo");
-        
         JogadorGols golsMurillo = new JogadorGols();
         golsMurillo.setJogador(murillo);
-        golsMurillo.setNumeroGols(10);
+        golsMurillo.setNumeroGols(6);
+
+        Jogador dudu = new Jogador();
+        dudu.setNome("Eduardo");
+        JogadorGols golsDudu = new JogadorGols();
+        golsDudu.setJogador(dudu);
+        golsDudu.setNumeroGols(4);
+
         Set<JogadorGols> golsDezFev = new HashSet<>();
         golsDezFev.add(golsMurillo);
+        golsDezFev.add(golsDudu);
         
         Partida dezFev = new Partida();
         dezFev.setId(1L);
