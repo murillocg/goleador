@@ -44,11 +44,34 @@ public class GoleadorApplication implements CommandLineRunner {
         Partida dezFev = new Partida();
         dezFev.setId(1L);
         dezFev.setAdversario("Dois irmãos");
-        dezFev.setDataRealizacao(LocalDate.now());
+        dezFev.setDataRealizacao(LocalDate.of(2017, 02, 03));
         dezFev.setGolsPro(10);
         dezFev.setGolsContra(3);
         dezFev.setJogadoresGols(golsDezFev);
                
         repository.save(dezFev);
+
+        Set<JogadorGols> golsTresFev = new HashSet<>();
+
+        JogadorGols golsMurilloTres = new JogadorGols();
+        golsMurilloTres.setJogador(murillo);
+        golsMurilloTres.setNumeroGols(12);
+
+        JogadorGols golsDuduTres = new JogadorGols();
+        golsDuduTres.setJogador(dudu);
+        golsDuduTres.setNumeroGols(5);
+
+        golsTresFev.add(golsMurilloTres);
+        golsTresFev.add(golsDuduTres);
+        
+        Partida tresFev = new Partida();
+        tresFev.setId(2L);
+        tresFev.setAdversario("Amigos Greminho");
+        tresFev.setDataRealizacao(LocalDate.now());
+        tresFev.setGolsPro(17);
+        tresFev.setGolsContra(1);
+        tresFev.setJogadoresGols(golsTresFev);
+        repository.save(tresFev);
+        
     }
 }

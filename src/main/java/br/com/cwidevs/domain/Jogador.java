@@ -16,5 +16,4 @@ public class Jogador {
         this.nome = nome;
     }
 
-    
 }
