@@ -1,15 +1,15 @@
 package br.com.cwidevs.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author murillo.goulart
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Document
 public class Partida {
 
     @Id

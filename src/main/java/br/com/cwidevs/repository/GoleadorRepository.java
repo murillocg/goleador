@@ -8,13 +8,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.aggregation.SortOperation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -32,23 +31,12 @@ public class GoleadorRepository {
     }
 
     public List<Goleador> list() {
-        SortOperation sortOperation = buildSortOpertation();
-        GroupOperation groupOperation = buildGroupOperation();
-
         return mongoTemplate.aggregate(Aggregation.newAggregation(
-                //sortOperation,
-                groupOperation
+                unwind("jogadoresGols"),
+                group("jogadoresGols.jogador.nome").sum("jogadoresGols.numeroGols").as("totalGols"),
+                project("totalGols").and("jogador").previousOperation(),
+                sort(Sort.Direction.DESC, "totalGols")
         ), Partida.class, Goleador.class).getMappedResults();
     }
 
-    private GroupOperation buildGroupOperation() {
-        return group("jogadoresGols.jogador.nome")
-                .first("jogadoresGols.jogador.nome").as("jogador")
-                .sum("jogadoresGols.jogador.numeroGols").as("totalGols");
-    }
-
-    private SortOperation buildSortOpertation() {
-        return sort(Sort.Direction.DESC, "numeroGols");
-    }
-    
 }

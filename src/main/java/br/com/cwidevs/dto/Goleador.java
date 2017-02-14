@@ -10,20 +10,5 @@ public class Goleador {
     
     private Integer totalGols;
 
-    public String getJogador() {
-        return jogador;
-    }
-
-    public void setJogador(String jogador) {
-        this.jogador = jogador;
-    }
-
-    public Integer getTotalGols() {
-        return totalGols;
-    }
-
-    public void setTotalGols(Integer totalGols) {
-        this.totalGols = totalGols;
-    }
-    
+    //Getters e Setters omitidos
 }
