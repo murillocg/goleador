@@ -2,6 +2,8 @@ package br.com.cwidevs.domain;
 
 import java.time.LocalDate;
 import java.util.Set;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,23 +15,29 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Partida {
 
     @Id
-    private Long id;
-        
+    private String id;
+    
+    @NotNull
     private String adversario;
     
+    @NotNull
     private LocalDate dataRealizacao;
 
+    @Min(0)
+    @NotNull
     private Integer golsPro;
     
+    @Min(0)
+    @NotNull
     private Integer golsContra;
 
     private Set<JogadorGols> jogadoresGols;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

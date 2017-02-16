@@ -1,8 +1,11 @@
 package br.com.cwidevs.resource;
 
+import br.com.cwidevs.domain.JogadorGols;
 import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.repository.PartidaRepository;
+import br.com.cwidevs.service.PartidaService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,19 +37,27 @@ public class PartidaResource {
 
     @PostMapping
     @PutMapping
-    public ResponseEntity<Partida> updateOrNew(
-            @RequestBody(required = true) Partida partida) {
+    public ResponseEntity<Partida> updateOrNew(@Valid @RequestBody(required = true) Partida partida) {
 
         if (partida.getId() != null && !repository.exists(partida.getId())) {
             partida.setId(null);
         }
-
+        
+        // Se a soma dos gols dos jogadores não fecha com os gols do time
+        if (partida.getGolsPro() != partida.getJogadoresGols()
+                .stream()
+                .mapToInt(JogadorGols::getNumeroGols)
+                .sum()) {
+            return ResponseEntity.badRequest().build();
+        }
+        repository.save(partida);
+        
         return new ResponseEntity<>(partida, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        
         repository.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

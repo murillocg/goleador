@@ -42,7 +42,7 @@ public class GoleadorApplication implements CommandLineRunner {
         golsDezFev.add(golsDudu);
         
         Partida dezFev = new Partida();
-        dezFev.setId(1L);
+        dezFev.setId("1");
         dezFev.setAdversario("Dois irmãos");
         dezFev.setDataRealizacao(LocalDate.of(2017, 02, 03));
         dezFev.setGolsPro(10);
@@ -65,7 +65,7 @@ public class GoleadorApplication implements CommandLineRunner {
         golsTresFev.add(golsDuduTres);
         
         Partida tresFev = new Partida();
-        tresFev.setId(2L);
+        tresFev.setId("2");
         tresFev.setAdversario("Amigos Greminho");
         tresFev.setDataRealizacao(LocalDate.now());
         tresFev.setGolsPro(17);

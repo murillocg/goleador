@@ -1,11 +1,14 @@
 package br.com.cwidevs.domain;
 
+import javax.validation.constraints.NotNull;
+
 /**
  *
  * @author murillo.goulart
  */
 public class Jogador {
 
+    @NotNull
     private String nome;
 
     public String getNome() {

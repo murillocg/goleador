@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  *
  * @author murillo.goulart
  */
-public interface PartidaRepository extends MongoRepository<Partida, Long> {
+public interface PartidaRepository extends MongoRepository<Partida, String> {
     
 }
