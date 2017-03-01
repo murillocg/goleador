@@ -1,21 +1,28 @@
 package br.com.cwidevs.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author murillo.goulart
  */
-@Document
-public class Partida {
+@Entity
+public class Partida implements Serializable {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)    
+    private Long id;
     
     @NotNull
     private String adversario;
@@ -31,13 +38,14 @@ public class Partida {
     @NotNull
     private Integer golsContra;
 
-    private Set<JogadorGols> jogadoresGols;
+    @OneToMany(mappedBy = "partida", cascade = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.MERGE })
+    private Set<JogadorGols> jogadoresGols = new HashSet<>();
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

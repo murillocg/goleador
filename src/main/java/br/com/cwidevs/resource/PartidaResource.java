@@ -3,7 +3,6 @@ package br.com.cwidevs.resource;
 import br.com.cwidevs.domain.JogadorGols;
 import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.repository.PartidaRepository;
-import br.com.cwidevs.service.PartidaService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class PartidaResource {
         // Se a soma dos gols dos jogadores não fecha com os gols do time
         if (partida.getGolsPro() != partida.getJogadoresGols()
                 .stream()
-                .mapToInt(JogadorGols::getNumeroGols)
+                .mapToInt(JogadorGols::getGols)
                 .sum()) {
             return ResponseEntity.badRequest().build();
         }
@@ -56,7 +55,7 @@ public class PartidaResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable String id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         
         repository.delete(id);
 
