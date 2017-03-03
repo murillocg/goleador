@@ -3,6 +3,7 @@ package br.com.cwidevs.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,8 +39,8 @@ public class Partida implements Serializable {
     @NotNull
     private Integer golsContra;
 
-    @OneToMany(mappedBy = "partida", cascade = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.MERGE })
-    private Set<JogadorGols> jogadoresGols = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.ALL})
+    private Set<PartidaJogador> jogadoresGols = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -81,13 +82,37 @@ public class Partida implements Serializable {
         this.golsContra = golsContra;
     }
 
-    public Set<JogadorGols> getJogadoresGols() {
+    public Set<PartidaJogador> getJogadoresGols() {
         return jogadoresGols;
     }
 
-    public void setJogadoresGols(Set<JogadorGols> jogadoresGols) {
+    public void setJogadoresGols(Set<PartidaJogador> jogadoresGols) {
         this.jogadoresGols = jogadoresGols;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Partida other = (Partida) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
     
 }

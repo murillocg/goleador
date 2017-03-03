@@ -1,8 +1,9 @@
 package br.com.cwidevs;
 
 import br.com.cwidevs.domain.Jogador;
-import br.com.cwidevs.domain.JogadorGols;
+import br.com.cwidevs.domain.PartidaJogador;
 import br.com.cwidevs.domain.Partida;
+import br.com.cwidevs.domain.PartidaJogadorPK;
 import br.com.cwidevs.repository.JogadorRepository;
 import br.com.cwidevs.repository.PartidaRepository;
 import java.time.LocalDate;
@@ -38,10 +39,21 @@ public class GoleadorApplication implements CommandLineRunner {
         murillo = jogadorRepository.save(murillo);
         dudu = jogadorRepository.save(dudu);
 
-        JogadorGols golsMurillo = new JogadorGols(6, dezFev, murillo);
-        JogadorGols golsDudu = new JogadorGols(4, dezFev, dudu);
-
-        Set<JogadorGols> golsDezFev = new HashSet<>();
+        PartidaJogador golsMurillo = new PartidaJogador();
+        golsMurillo.setGols(6);
+        PartidaJogadorPK golsMurilloPK = new PartidaJogadorPK();
+        golsMurilloPK.setPartida(dezFev);
+        golsMurilloPK.setJogador(murillo);
+        golsMurillo.setId(golsMurilloPK);
+        
+        PartidaJogador golsDudu = new PartidaJogador();
+        golsDudu.setGols(4);
+        PartidaJogadorPK golsDuduPK = new PartidaJogadorPK();
+        golsDuduPK.setPartida(dezFev);
+        golsDuduPK.setJogador(dudu);
+        golsDudu.setId(golsDuduPK);
+        
+        Set<PartidaJogador> golsDezFev = new HashSet<>();
         golsDezFev.add(golsMurillo);
         golsDezFev.add(golsDudu);
         

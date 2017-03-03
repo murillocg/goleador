@@ -1,6 +1,6 @@
 package br.com.cwidevs.resource;
 
-import br.com.cwidevs.domain.JogadorGols;
+import br.com.cwidevs.domain.PartidaJogador;
 import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.repository.PartidaRepository;
 import java.util.List;
@@ -45,7 +45,7 @@ public class PartidaResource {
         // Se a soma dos gols dos jogadores não fecha com os gols do time
         if (partida.getGolsPro() != partida.getJogadoresGols()
                 .stream()
-                .mapToInt(JogadorGols::getGols)
+                .mapToInt(PartidaJogador::getGols)
                 .sum()) {
             return ResponseEntity.badRequest().build();
         }
