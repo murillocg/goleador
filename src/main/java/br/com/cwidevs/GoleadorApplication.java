@@ -36,8 +36,12 @@ public class GoleadorApplication implements CommandLineRunner {
         murillo.setNome("Murillo");
         Jogador dudu = new Jogador();
         dudu.setNome("Eduardo");
+        Jogador gabriel = new Jogador();
+        gabriel.setNome("Gabriel");
+        
         murillo = jogadorRepository.save(murillo);
         dudu = jogadorRepository.save(dudu);
+        gabriel = jogadorRepository.save(gabriel);
 
         PartidaJogador golsMurillo = new PartidaJogador();
         golsMurillo.setGols(6);
@@ -67,26 +71,34 @@ public class GoleadorApplication implements CommandLineRunner {
                
         partidaRepository.save(dezFev);
 
-//        Partida tresFev = new Partida();
-//
-//        Set<JogadorGols> golsTresFev = new HashSet<>();
-//
-//        JogadorGols golsMurilloTres = new JogadorGols(tresFev, murillo);
-//        golsMurilloTres.setNumeroGols(12);
-//
-//        JogadorGols golsDuduTres = new JogadorGols(tresFev, dudu);
-//        golsDuduTres.setNumeroGols(5);
-//
-//        golsTresFev.add(golsMurilloTres);
-//        golsTresFev.add(golsDuduTres);
-//        
-//        tresFev.setId(2L);
-//        tresFev.setAdversario("Amigos Greminho");
-//        tresFev.setDataRealizacao(LocalDate.now());
-//        tresFev.setGolsPro(17);
-//        tresFev.setGolsContra(1);
-//        tresFev.setJogadoresGols(golsTresFev);
-//        partidaRepository.save(tresFev);
+        Partida tresFev = new Partida();
+
+        Set<PartidaJogador> golsTresFev = new HashSet<>();
+
+        PartidaJogador golsMurilloTres = new PartidaJogador();
+        golsMurilloTres.setGols(12);
+        PartidaJogadorPK golsMurilloTresPK = new PartidaJogadorPK();
+        golsMurilloTresPK.setPartida(tresFev);
+        golsMurilloTresPK.setJogador(murillo);
+        golsMurilloTres.setId(golsMurilloTresPK);
+
+        PartidaJogador golsDuduTres = new PartidaJogador();
+        golsDuduTres.setGols(5);
+        PartidaJogadorPK golsDuduTresPK = new PartidaJogadorPK();
+        golsDuduTresPK.setPartida(tresFev);
+        golsDuduTresPK.setJogador(dudu);
+        golsDuduTres.setId(golsDuduTresPK);
+        
+        golsTresFev.add(golsMurilloTres);
+        golsTresFev.add(golsDuduTres);
+        
+        tresFev.setId(2L);
+        tresFev.setAdversario("Amigos Greminho");
+        tresFev.setDataRealizacao(LocalDate.now());
+        tresFev.setGolsPro(17);
+        tresFev.setGolsContra(1);
+        tresFev.setJogadoresGols(golsTresFev);
+        partidaRepository.save(tresFev);
         
     }
 }

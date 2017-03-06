@@ -1,7 +1,7 @@
 package br.com.cwidevs.resource;
 
 import br.com.cwidevs.dto.Goleador;
-import br.com.cwidevs.repository.GoleadorRepository;
+import br.com.cwidevs.repository.PartidaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoleadorResource {
 
     @Autowired
-    private GoleadorRepository repository;
+    private PartidaRepository repository;
     
     @GetMapping
     private List<Goleador> getAll() {
-        return repository.list();
+        return repository.getGoleadores();
     }
 }

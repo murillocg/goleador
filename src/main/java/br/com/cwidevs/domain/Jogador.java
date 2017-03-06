@@ -21,6 +21,9 @@ public class Jogador implements Serializable {
     
     @NotNull
     private String nome;
+    
+    @NotNull
+    private Boolean ativo = Boolean.TRUE;
 
     public Long getId() {
         return id;
@@ -36,6 +39,14 @@ public class Jogador implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override
