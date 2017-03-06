@@ -12,7 +12,7 @@ node_js:
 jdk:
   - oraclejdk8
   
-sudo: false
+sudo: required
 
 cache:
   directories:
