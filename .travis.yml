@@ -16,9 +16,7 @@ cache:
     - $HOME/.m2
     
 script:
-  - ./mvnw clean
-  - ./mvnw test
-  - ./mvnw package -Pprod -DskipTests
+  - mvn clean package docker:build
   
 notifications:
   webhooks:
