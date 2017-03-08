@@ -3,7 +3,11 @@ package br.com.cwidevs.resource;
 import br.com.cwidevs.domain.PartidaJogador;
 import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.repository.PartidaRepository;
+import br.com.cwidevs.resource.vm.PartidaJogadorVM;
+import br.com.cwidevs.resource.vm.PartidaVM;
+import br.com.cwidevs.service.PartidaService;
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +17,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,28 +32,31 @@ public class PartidaResource {
     @Autowired
     private PartidaRepository repository;
 
+    @Autowired
+    private PartidaService partidaService;
+
     @GetMapping
-    public List<Partida> getAll() {
-        return repository.findAll();
+    public ResponseEntity<List<PartidaVM>> getAll() {
+        List<PartidaVM> partidaVMs = repository.findAll()
+                .stream()
+                .map(PartidaVM::new)
+                .collect(toList());
+        
+        return new ResponseEntity<>(partidaVMs, HttpStatus.OK);
     }
 
     @PostMapping
-    @PutMapping
-    public ResponseEntity<Partida> updateOrNew(@Valid @RequestBody(required = true) Partida partida) {
+    public ResponseEntity<Partida> updateOrNew(@Valid @RequestBody(required = true) PartidaVM partidaVM) {
 
-        if (partida.getId() != null && !repository.exists(partida.getId())) {
-            partida.setId(null);
-        }
-        
         // Se a soma dos gols dos jogadores não fecha com os gols do time
-        if (partida.getGolsPro() != partida.getJogadoresGols()
-                .stream()
-                .mapToInt(PartidaJogador::getGols)
-                .sum()) {
+        if (partidaVM.getGolsPro() != partidaVM.getJogadoresGols()
+                                                .stream()
+                                                .mapToInt(PartidaJogadorVM::getGols)
+                                                .sum()) {
             return ResponseEntity.badRequest().build();
         }
-        repository.save(partida);
-        
+        Partida partida = partidaService.createPartida(partidaVM);
+
         return new ResponseEntity<>(partida, HttpStatus.OK);
     }
 
