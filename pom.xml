@@ -70,7 +70,7 @@
                         <resource>
                             <targetPath>/</targetPath>
                             <directory>${project.build.directory}</directory>
-                            <include>${project.artifactId}-${project.version}.jar</include>
+                            <include>${project.artifactId}-${project.version}.war</include>
                         </resource>
                     </resources>
                     <forceTags>true</forceTags>
