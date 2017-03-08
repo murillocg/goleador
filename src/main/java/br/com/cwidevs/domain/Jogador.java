@@ -2,6 +2,7 @@ package br.com.cwidevs.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Jogador implements Serializable {
     private Long id;
     
     @NotNull
+    @Column(unique = true, nullable = false)
     private String nome;
     
     @NotNull
