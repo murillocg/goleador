@@ -16,7 +16,7 @@ cache:
     - $HOME/.m2
     
 script:
-  - mvn clean package docker:build
+  - mvn -X clean package docker:build
 
 branches:
   only:
