@@ -2,6 +2,7 @@ package br.com.cwidevs.resource.vm;
 
 import br.com.cwidevs.domain.Partida;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -2,15 +2,19 @@ package br.com.cwidevs.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -22,24 +26,27 @@ import javax.validation.constraints.NotNull;
 public class Partida implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)    
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @NotNull
     private String adversario;
-    
+
     @NotNull
+    @Column(name = "dt_realizacao")
     private LocalDate dataRealizacao;
 
     @Min(0)
     @NotNull
+    @Column(name = "gols_pro")
     private Integer golsPro;
-    
+
     @Min(0)
     @NotNull
+    @Column(name = "gols_contra")
     private Integer golsContra;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "id.partida")
     private Set<PartidaJogador> jogadoresGols = new HashSet<>();
 
     public Long getId() {
@@ -114,5 +121,5 @@ public class Partida implements Serializable {
         }
         return true;
     }
-    
+
 }

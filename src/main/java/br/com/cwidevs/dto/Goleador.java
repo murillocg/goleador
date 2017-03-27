@@ -1,30 +1,28 @@
 package br.com.cwidevs.dto;
 
-import br.com.cwidevs.domain.Jogador;
-
 /**
  *
  * @author murillo.goulart
  */
 public class Goleador {
     
-    private Jogador jogador;
+    private Long jogador;
     
     private Long totalGols;
 
     public Goleador() {
     }
 
-    public Goleador(Jogador jogador, Long totalGols) {
+    public Goleador(Long jogador, Long totalGols) {
         this.jogador = jogador;
         this.totalGols = totalGols;
     }
 
-    public Jogador getJogador() {
+    public Long getJogador() {
         return jogador;
     }
 
-    public void setJogador(Jogador jogador) {
+    public void setJogador(Long jogador) {
         this.jogador = jogador;
     }
 

@@ -35,4 +35,54 @@
                   tableName="jogador"/>
     </changeSet>   
 
+    <changeSet id="20170327-1037" author="murillo.goulart">
+        <createTable tableName="partida">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" primaryKeyName="partida_pk" />
+            </column>
+            <column name="adversario" type="varchar(128)">
+                <constraints nullable="false" />
+            </column>
+            <column name="dt_realizacao" type="date">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="gols_pro" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gols_contra" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>   
+    
+    <changeSet id="20170327-1056" author="murillo.goulart">
+        <createTable tableName="partida_jogador">
+            <column name="partida_id" type="bigint">
+                <constraints nullable="false" referencedTableName="partida" referencedColumnNames="id" foreignKeyName="partida_fk" />
+            </column>
+            <column name="jogador_id" type="bigint">
+                <constraints nullable="false" referencedTableName="jogador" referencedColumnNames="id" foreignKeyName="jogador_fk" />
+            </column>
+            <column name="gols" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addPrimaryKey columnNames="partida_id, jogador_id" tableName="partida_jogador" />
+    </changeSet>   
+    
+    <changeSet id="20170327-1227" author="murillo.goulart">
+        <loadData encoding="UTF-8"
+              file="db/0.1.0/partidas.csv"
+              separator=";"
+              tableName="partida"/>
+    </changeSet>
+    
+    <changeSet id="20170327-1247" author="murillo.goulart">
+        <loadData encoding="UTF-8"
+              file="db/0.1.0/partidas_jogadores.csv"
+              separator=";"
+              tableName="partida_jogador"/>
+    </changeSet>
+    
 </databaseChangeLog>

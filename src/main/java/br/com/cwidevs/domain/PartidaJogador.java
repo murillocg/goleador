@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
  * @author murillo.goulart
  */
 @Entity
+@Table(name = "partida_jogador")
 public class PartidaJogador implements Serializable {
 
     @EmbeddedId

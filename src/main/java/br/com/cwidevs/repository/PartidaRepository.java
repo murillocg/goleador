@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface PartidaRepository extends JpaRepository<Partida, Long> {
 
-    @Query("select new br.com.cwidevs.dto.Goleador(j, sum(pj.gols)) from PartidaJogador pj join pj.id.jogador j group by j")
+    @Query("select new br.com.cwidevs.dto.Goleador(j.id, sum(pj.gols)) from PartidaJogador pj join pj.id.jogador j group by j")
     public List<Goleador> getGoleadores();
     
 }

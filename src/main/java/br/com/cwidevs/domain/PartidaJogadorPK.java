@@ -1,8 +1,8 @@
 package br.com.cwidevs.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,13 +14,12 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class PartidaJogadorPK implements Serializable {
    
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "partida_id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "partida_id")
     private Partida partida;
 
-    @ManyToOne
-    @JoinColumn(name = "jogador_id", insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "jogador_id")
     private Jogador jogador;
 
     public Partida getPartida() {
