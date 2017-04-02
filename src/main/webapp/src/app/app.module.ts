@@ -11,6 +11,7 @@ import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { GoleadorService } from './goleadores/shared/goleador.service';
 import { JogadoresComponent } from './jogadores/jogadores.component';
 import { JogadorService } from './jogadores/shared/jogador.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PartidasComponent } from './partidas/partidas.component';
 import { PartidaService } from './partidas/shared/partida.service';
 
@@ -21,6 +22,7 @@ import { PartidaService } from './partidas/shared/partida.service';
     DashboardComponent,
     GoleadoresComponent,
     JogadoresComponent,
+    PageNotFoundComponent,
     PartidasComponent
   ],
   imports: [
