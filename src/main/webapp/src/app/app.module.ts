@@ -10,13 +10,16 @@ import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { GoleadorService } from './goleadores/shared/goleador.service';
 import { JogadoresComponent } from './jogadores/jogadores.component';
 import { JogadorService } from './jogadores/shared/jogador.service';
+import { PartidasComponent } from './partidas/partidas.component';
+import { PartidaService } from './partidas/shared/partida.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GoleadoresComponent,
-    JogadoresComponent
+    JogadoresComponent,
+    PartidasComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { JogadorService } from './jogadores/shared/jogador.service';
   ],
   providers: [
     GoleadorService,
-    JogadorService
+    JogadorService,
+    PartidaService
   ],
   bootstrap: [AppComponent]
 })
