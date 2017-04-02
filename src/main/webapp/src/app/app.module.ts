@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { GoleadorService } from './goleadores/shared/goleador.service';
 import { JogadoresComponent } from './jogadores/jogadores.component';
@@ -17,6 +18,7 @@ import { PartidaService } from './partidas/shared/partida.service';
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     GoleadoresComponent,
     JogadoresComponent,
     PartidasComponent
