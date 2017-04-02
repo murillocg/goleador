@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { GoleadoresComponent } from './goleadores/goleadores.component';
+import { GoleadorService } from './goleadores/shared/goleador.service';
 import { JogadoresComponent } from './jogadores/jogadores.component';
 import { JogadorService } from './jogadores/shared/jogador.service';
 
@@ -13,6 +15,7 @@ import { JogadorService } from './jogadores/shared/jogador.service';
 @NgModule({
   declarations: [
     AppComponent,
+    GoleadoresComponent,
     JogadoresComponent
   ],
   imports: [
@@ -21,7 +24,10 @@ import { JogadorService } from './jogadores/shared/jogador.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [JogadorService],
+  providers: [
+    GoleadorService,
+    JogadorService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { JogadoresComponent } from './jogadores/jogadores.component';
 
 const routes: Routes = [
+  {
+    path: 'goleadores',
+    component: GoleadoresComponent
+  },
   {
     path: 'jogadores',
     component: JogadoresComponent
