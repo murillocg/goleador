@@ -4,7 +4,30 @@
   </div>
 </div>
 <div class="container">
-  <ul class="list-group">
-    <li *ngFor="let jogador of jogadores" class="list-group-item">{{jogador.nome}}</li>
-  </ul>
+  <p>
+    <button type="button" class="btn btn-secondary" routerLink="/jogador">
+      <i class="fa fa-plus"></i> Incluir
+    </button>
+  </p>
+    <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let jogador of jogadores">
+        <td>{{ jogador.nome }}</td>
+        <td>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="editJogador(jogador)">
+            <i class="fa fa-pencil-square-o"></i> Editar
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" (click)="removeJogador(jogador)">
+            <i class="fa fa-trash"></i> Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

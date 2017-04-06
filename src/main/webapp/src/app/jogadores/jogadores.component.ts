@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 
 import { Jogador } from './shared/jogador.model';
 import { JogadorService } from './shared/jogador.service';
@@ -11,8 +12,16 @@ import { JogadorService } from './shared/jogador.service';
 export class JogadoresComponent implements OnInit {
   jogadores: Jogador[];
 
-  constructor(private jogadorService: JogadorService) {
+  constructor(private jogadorService: JogadorService, private router: Router) {
 
+  }
+
+  editJogador(jogador: Jogador): void {
+    this.router.navigate(['/jogador', jogador.id]);
+  }
+
+  removeJogador(jogador: Jogador): void {
+    this.jogadorService.removeJogador(jogador);
   }
 
   ngOnInit(): void {
@@ -20,10 +29,6 @@ export class JogadoresComponent implements OnInit {
   }
 
   private getJogadores(): void {
-    this.jogadorService.getJogadores().then(
-    //this.jogadorService.getJogadoresHttp().then(
-      jogadores => this.jogadores = jogadores
-      //jogadores => console.log(jogadores)
-    );
+    this.jogadores = this.jogadorService.getJogadores();
   }
 }

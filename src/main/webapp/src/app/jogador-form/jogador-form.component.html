@@ -1,0 +1,15 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>{{ title }}</h1>
+  </div>
+</div>
+<div class="container">
+  <form [formGroup]="jogadorForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control" id="nome" formControlName="nome">
+    </div>
+    <button type="button" class="btn btn-danger" routerLink="/jogadores">Cancelar</button>
+    <button type="submit" class="btn btn-success" [disabled]="!jogadorForm.valid">Salvar</button>
+  </form>
+</div>

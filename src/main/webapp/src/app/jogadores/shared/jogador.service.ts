@@ -11,13 +11,14 @@ export class JogadorService {
 
   private jogadores: Jogador[];
   private jogadoresUrl = 'http://0.0.0.0:32768/jogadores';
+  private nextId: number;
 
   constructor(private http: Http) {
     this.init();
   }
 
-  getJogadores(): Promise<Jogador[]> {
-    return Promise.resolve(JOGADORES);
+  getJogadores(): Jogador[] {
+    return this.jogadores;
   }
 
   getJogadoresHttp(): Promise<Jogador[]> {
@@ -31,14 +32,31 @@ export class JogadorService {
     return this.jogadores.find(jogador => jogador.id === +id);
   }
 
+  addJogador(jogador: Jogador): void {
+    this.jogadores.push({
+      id: this.nextId++,
+      nome: jogador.nome,
+      ativo: true
+    });
+  }
+
+  updateJogador(jogador: Jogador): void {
+    const index = this.jogadores.indexOf(jogador);
+    this.jogadores[index].nome = jogador.nome;
+  }
+
+  removeJogador(jogador: Jogador): void {
+    const index = this.jogadores.indexOf(jogador);
+    this.jogadores.splice(index, 1);
+  }
+
   private handleError(error: any): Promise<any> {
       console.error('An error occurred', error);
       return Promise.reject(error.message || error);
   }
 
   private init() {
-    this.getJogadores().then(
-      jogadores => this.jogadores = jogadores
-    );
+    this.jogadores = JOGADORES;
+    this.nextId = 100;
   }
 }
