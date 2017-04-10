@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author murillo.goulart
  */
 @RestController
-@RequestMapping(path = "/jogadores", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "/api/jogadores", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class JogadorResource {
     
     @Autowired
@@ -43,12 +43,15 @@ public class JogadorResource {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         jogadorRepository.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<Jogador> get(@PathVariable Long id) {
         Jogador result = jogadorRepository.findOne(id);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }    
 }
