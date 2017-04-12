@@ -27,9 +27,13 @@ export class JogadorFormComponent implements OnInit {
   onSubmit(): void {
     this.updateLocalJogador();
     if (this.editMode) {
-      this.jogadorService.updateJogador(this.jogador);
+      this.jogadorService.updateJogador(this.jogador).subscribe(
+        jogadores => console.log(jogadores)
+      );
     } else {
-      this.jogadorService.addJogador(this.jogador);
+      this.jogadorService.addJogador(this.jogador).subscribe(
+        jogadores => console.log(jogadores)
+      );
     }
     this.jogadorForm.reset();
     this.router.navigate(['/jogadores']);
@@ -40,16 +44,21 @@ export class JogadorFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.editMode = true;
-    this.title = 'Alteração de jogador';
+    this.jogador = new Jogador();
+    this.editMode = false;
+    this.title = 'Inclusão de jogador';
+    let id: number;
     this.activatedRoute.params.forEach((params: Params) => {
-      let id = +params['id'];
-      this.jogador = this.jogadorService.getJogador(id);
+      id = +params['id'];
     })
-    if (this.jogador === undefined) {
-      this.jogador = new Jogador();
-      this.editMode = false;
-      this.title = 'Inclusão de jogador';
+    if (id) {
+      this.editMode = true;
+      this.title = 'Alteração de jogador';
+      this.activatedRoute.data.subscribe(
+        (data: { jogador: Jogador }) => {
+          this.jogador = data.jogador;
+        }
+      );
     }
 
     this.jogadorForm = this.formBuilder.group({

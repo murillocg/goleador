@@ -1,33 +1,74 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import { Partida } from './partida.model';
-import { PARTIDAS } from './mock-partidas';
 
 @Injectable()
 export class PartidaService {
 
-  private partidasUrl = 'http://0.0.0.0:32768/partidas';
+  private partidasUrl = '/api/partidas';
 
-  constructor(private http: Http) {
+  constructor(private http: Http) { }
 
-  }
-
-  getPartidas(): Promise<Partida[]> {
-    return Promise.resolve(PARTIDAS);
-  }
-
-  getPartidasHttp(): Promise<Partida[]> {
-    return this.http.get(this.partidasUrl)
-      .toPromise()
-      .then(response => response.json() as Partida[])
+  getPartidas(): Observable<Partida[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.partidasUrl, options)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
-  private handleError(error: any): Promise<any> {
-      console.error('An error occurred', error);
-      return Promise.reject(error.message || error);
+  getPartida(id: number): Observable<Partida> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.partidasUrl + '/' + id.toString(), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  addPartida(partida: Partida): Observable<Partida[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.partidasUrl, partida, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  updatePartida(partida: Partida): Observable<Partida[]> {
+    let url = this.partidasUrl + '/' + partida.id.toString();
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(url, partida, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  removePartida(partida: Partida): Observable<Partida[]> {
+    let url = this.partidasUrl + '/' + partida.id.toString();
+    return this.http.delete(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  private extractData(response: Response) {
+    let body = response.json();
+    return body;
+  }
+
+  private handleError(error: Response | any): Observable  <any> {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 }

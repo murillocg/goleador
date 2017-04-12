@@ -13,6 +13,8 @@ import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { GoleadorService } from './goleadores/shared/goleador.service';
 import { JogadoresComponent } from './jogadores/jogadores.component';
 import { JogadorFormComponent } from './jogador-form/jogador-form.component';
+import { JogadorFormResolver } from './jogador-form/jogador-form-resolver.service';
+import { JogadorFilterService } from './jogadores/shared/jogador-filter.service';
 import { JogadorService } from './jogadores/shared/jogador.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PartidasComponent } from './partidas/partidas.component';
@@ -38,6 +40,8 @@ import { PartidaService } from './partidas/shared/partida.service';
   ],
   providers: [
     GoleadorService,
+    JogadorFilterService,
+    JogadorFormResolver,
     JogadorService,
     PartidaService
   ],

@@ -3,10 +3,10 @@
     <h1>Goleadores</h1>
   </div>
   <hr>
-  <ul class="list-group">
+  <ul class="list-group" *ngIf="jogadores">
     <li *ngFor="let goleador of goleadores" class="list-group-item justify-content-between">
-      {{getNome(goleador.id)}}
-      <span class="badge badge-default badge-pill">{{goleador.totalGols}}</span>
+      {{ getNome(goleador) }}
+      <span class="badge badge-default badge-pill">{{ goleador.totalGols }}</span>
     </li>
   </ul>
 </div>
