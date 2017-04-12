@@ -105,7 +105,6 @@ public class JogadorResourceIntTest {
         assertThat(jogadores).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Ignore
     @Test
     @Transactional
     public void checkNomeAlreadyExists() throws Exception {
@@ -119,7 +118,7 @@ public class JogadorResourceIntTest {
         restMockMvc.perform(post("/api/jogadores")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(testJogador)))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isBadRequest());
 
         // Validate in the database
         List<Jogador> jogadores = jogadorRepository.findAll();

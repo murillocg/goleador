@@ -2,6 +2,7 @@ package br.com.cwidevs.resource;
 
 import br.com.cwidevs.domain.Jogador;
 import br.com.cwidevs.repository.JogadorRepository;
+import br.com.cwidevs.resource.util.HeaderUtil;
 import java.net.URISyntaxException;
 import java.util.List;
 import javax.validation.Valid;
@@ -36,6 +37,11 @@ public class JogadorResource {
     
     @PostMapping
     public ResponseEntity<Jogador> createOrUpdate(@Valid @RequestBody Jogador jogador) {
+        if (jogadorRepository.findOneByNome(jogador.getNome()).isPresent()) {
+             return ResponseEntity.badRequest()
+                .headers(HeaderUtil.createFailureAlert("jogador", "nameexists", "Name already in use"))
+                .body(null);
+        }
         Jogador result = jogadorRepository.save(jogador);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }    
