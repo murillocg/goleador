@@ -1,0 +1,28 @@
+<div class="container">
+  <header class="navbar navbar-light navbar-fixed-top navbar-toggleable">
+      <button class="navbar-toggler navbar-toggler-right" type="button" (click)="navbarCollapsed = !navbarCollapsed"
+              [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/dashboard">Goleador</a>
+      <div class="navbar-collapse" [ngbCollapse]="navbarCollapsed" id="navbarContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/jogadores">Jogadores</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/partidas">Partidas</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/goleadores">Goleadores</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+</div>
+<router-outlet></router-outlet>
+<footer class="bd-footer text-muted text-center">
+  <div class="container">
+    <p>©2017. Built with care by <b>Murillo Colissi Goulart</b> and <b>Pedro Guilherme Rohr</b>.</p>
+  </div>
+</footer>

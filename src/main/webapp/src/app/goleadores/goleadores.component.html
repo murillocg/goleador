@@ -1,0 +1,13 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Goleadores</h1>
+  </div>
+</div>
+<div class="container">
+  <ul class="list-group">
+    <li *ngFor="let goleador of goleadores" class="list-group-item">
+      {{goleador.totalGols}}
+      {{getNome(goleador.id)}}
+    </li>
+  </ul>
+</div>
