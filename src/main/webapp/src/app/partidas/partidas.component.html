@@ -1,0 +1,19 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1>Partidas</h1>
+  </div>
+</div>
+<div class="container">
+  <ngb-accordion>
+    <ngb-panel *ngFor="let partida of partidas" title="{{partida.dataRealizacao}} : {{partida.golsPro}} x {{partida.golsContra}} {{partida.adversario}}">
+      <template ngbPanelContent>
+        <ul class="list-group">
+          <li *ngFor="let jogadorGols of partida.jogadoresGols" class="list-group-item">
+            {{jogadorGols.gols}}
+            {{getNome(jogadorGols.jogadorId)}}
+          </li>
+        </ul>
+      </template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
