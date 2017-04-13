@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { GoleadorService } from './goleadores/shared/goleador.service';
 import { JogadoresComponent } from './jogadores/jogadores.component';
+import { JogadorFormComponent } from './jogador-form/jogador-form.component';
+import { JogadorFormResolver } from './jogador-form/jogador-form-resolver.service';
+import { JogadorFilterService } from './jogadores/shared/jogador-filter.service';
 import { JogadorService } from './jogadores/shared/jogador.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PartidasComponent } from './partidas/partidas.component';
@@ -24,18 +27,21 @@ import { PartidaService } from './partidas/shared/partida.service';
     DashboardComponent,
     GoleadoresComponent,
     JogadoresComponent,
+    JogadorFormComponent,
     PageNotFoundComponent,
     PartidasComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgbModule.forRoot()
   ],
   providers: [
     GoleadorService,
+    JogadorFilterService,
+    JogadorFormResolver,
     JogadorService,
     PartidaService
   ],

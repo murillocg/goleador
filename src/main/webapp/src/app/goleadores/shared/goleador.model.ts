@@ -1,4 +1,4 @@
 export class Goleador {
-  id: number;
+  jogador: number;
   totalGols: number;
 }

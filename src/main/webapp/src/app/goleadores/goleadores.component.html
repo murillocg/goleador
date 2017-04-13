@@ -1,13 +1,12 @@
-<div class="jumbotron">
-  <div class="container">
+<div class="container">
+  <div class="page-header">
     <h1>Goleadores</h1>
   </div>
-</div>
-<div class="container">
-  <ul class="list-group">
-    <li *ngFor="let goleador of goleadores" class="list-group-item">
-      {{goleador.totalGols}}
-      {{getNome(goleador.id)}}
+  <hr>
+  <ul class="list-group" *ngIf="jogadores">
+    <li *ngFor="let goleador of goleadores" class="list-group-item justify-content-between">
+      {{ getNome(goleador) }}
+      <span class="badge badge-default badge-pill">{{ goleador.totalGols }}</span>
     </li>
   </ul>
 </div>
