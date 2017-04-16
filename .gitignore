@@ -27,3 +27,4 @@ nbdist/
 /bower_components
 /node_modules
 /dist
+/src/main/resources/static/
