@@ -23,7 +23,7 @@
     <tbody>
       <tr *ngFor="let jogador of filteredJogadores">
         <td>{{ jogador.nome }}</td>
-        <td>
+          <td class="text-right">
           <button type="button" class="btn btn-secondary btn-sm" (click)="editJogador(jogador)">
             <i class="fa fa-pencil-square-o"></i>&nbsp;Editar
           </button>
