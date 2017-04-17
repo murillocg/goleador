@@ -29,6 +29,7 @@ after_success:
   - export VERSION=`xml2 < pom.xml  | grep /project/version= | sed 's/.*=//'`
   - test "$TRAVIS_BRANCH" == 'master' && (docker tag $REPO murillocg/$REPO; docker tag $REPO murillocg/$REPO:$VERSION; docker push murillocg/$REPO:latest; docker push murillocg/$REPO:$VERSION)
   - test "$TRAVIS_BRANCH" == 'develop' && (docker tag $REPO murillocg/$REPO:snapshot; docker push murillocg/$REPO:snapshot)
+  - coveralls
   
 notifications:
   webhooks:
