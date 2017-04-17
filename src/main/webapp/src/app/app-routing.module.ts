@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GoleadoresComponent } from './goleadores/goleadores.component';
 import { JogadoresComponent } from './jogadores/jogadores.component';
+import { JogadorFormComponent } from './jogador-form/jogador-form.component';
+import { JogadorFormResolver } from './jogador-form/jogador-form-resolver.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PartidasComponent } from './partidas/partidas.component';
 
@@ -15,6 +17,17 @@ const routes: Routes = [
   {
     path: 'goleadores',
     component: GoleadoresComponent
+  },
+  {
+    path: 'jogador/:id',
+    component: JogadorFormComponent,
+    resolve: {
+      jogador: JogadorFormResolver
+    }
+  },
+  {
+    path: 'jogador',
+    component: JogadorFormComponent
   },
   {
     path: 'jogadores',

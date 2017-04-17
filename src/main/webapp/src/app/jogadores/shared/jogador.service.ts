@@ -1,44 +1,75 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
 
 import { Jogador } from './jogador.model';
-import { JOGADORES } from './mock-jogadores';
 
 @Injectable()
 export class JogadorService {
 
-  private jogadores: Jogador[];
-  private jogadoresUrl = 'http://0.0.0.0:32768/jogadores';
+  private jogadoresUrl = '/api/jogadores';
 
-  constructor(private http: Http) {
-    this.init();
-  }
+  constructor(private http: Http) { }
 
-  getJogadores(): Promise<Jogador[]> {
-    return Promise.resolve(JOGADORES);
-  }
-
-  getJogadoresHttp(): Promise<Jogador[]> {
-    return this.http.get(this.jogadoresUrl)
-      .toPromise()
-      .then(response => response.json() as Jogador[])
+  getJogadores(): Observable<Jogador[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.jogadoresUrl, options)
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
-  getJogador(id: number): Jogador {
-    return this.jogadores.find(jogador => jogador.id === +id);
+  getJogador(id: number): Observable<Jogador> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.jogadoresUrl + '/' + id.toString(), options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  private handleError(error: any): Promise<any> {
-      console.error('An error occurred', error);
-      return Promise.reject(error.message || error);
+  addJogador(jogador: Jogador): Observable<Jogador[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.jogadoresUrl, jogador, options)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
-  private init() {
-    this.getJogadores().then(
-      jogadores => this.jogadores = jogadores
-    );
+  updateJogador(jogador: Jogador): Observable<Jogador[]> {
+    let url = this.jogadoresUrl + '/' + jogador.id.toString();
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(url, jogador, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  removeJogador(jogador: Jogador): Observable<Jogador[]> {
+    let url = this.jogadoresUrl + '/' + jogador.id.toString();
+    return this.http.delete(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  private extractData(response: Response) {
+    let body = response.json();
+    return body;
+  }
+
+  private handleError(error: Response | any): Observable  <any> {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 }

@@ -1,10 +1,5 @@
-.navbar {
-    background-color: #ffffff;
-}
-.bd-footer {
+.footer {
     padding: 3rem 0;
     margin-top: 3rem;
     font-size: 85%;
-    background-color: #f7f7f7;
-    text-align: left;
 }

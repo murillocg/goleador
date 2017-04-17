@@ -1,3 +1,5 @@
+import { JogadorGols } from './jogador-gols.model';
+
 export class Partida {
   id: number;
   adversario: string;
@@ -5,9 +7,4 @@ export class Partida {
   golsPro: number;
   golsContra: number;
   jogadoresGols: JogadorGols[];
-}
-
-class JogadorGols {
-  jogadorId: number;
-  gols: number;
 }
