@@ -137,7 +137,8 @@ public class JogadorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(jogador.getId().intValue())))
-            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)));
+            .andExpect(jsonPath("$.[*].nome").value(hasItem(DEFAULT_NOME)))
+            .andExpect(jsonPath("$.[*].ativo").value(hasItem(DEFAULT_ATIVO.booleanValue())));
     }    
     
 
