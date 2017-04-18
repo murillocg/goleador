@@ -30,14 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class PartidaResource {
 
     @Autowired
-    private PartidaRepository repository;
+    private PartidaRepository partidaRepository;
 
     @Autowired
     private PartidaService partidaService;
 
     @GetMapping
     public ResponseEntity<List<PartidaVM>> getAll() {
-        List<PartidaVM> partidaVMs = repository.findAll()
+        List<PartidaVM> partidaVMs = partidaRepository.findAll()
                 .stream()
                 .map(PartidaVM::new)
                 .collect(toList());
@@ -46,7 +46,7 @@ public class PartidaResource {
     }
 
     @PostMapping
-    public ResponseEntity<Partida> updateOrNew(@Valid @RequestBody(required = true) PartidaVM partidaVM) {
+    public ResponseEntity<PartidaVM> updateOrNew(@Valid @RequestBody(required = true) PartidaVM partidaVM) {
 
         // Se a soma dos gols dos jogadores não fecha com os gols do time
         if (partidaVM.getGolsPro() != partidaVM.getJogadoresGols()
@@ -57,13 +57,13 @@ public class PartidaResource {
         }
         Partida partida = partidaService.createPartida(partidaVM);
 
-        return new ResponseEntity<>(partida, HttpStatus.OK);
+        return new ResponseEntity<>(new PartidaVM(partida), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         
-        repository.delete(id);
+        partidaRepository.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

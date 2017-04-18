@@ -1,6 +1,7 @@
 package br.com.cwidevs.resource.vm;
 
 import br.com.cwidevs.domain.Partida;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import java.util.Set;
  * 
  * @author murillo.goulart
  */
-public class PartidaVM {
+public class PartidaVM implements Serializable {
     
     private Long id;
     
@@ -44,6 +45,15 @@ public class PartidaVM {
                     )
             )
        );
+    }
+
+    public PartidaVM(Long id, String adversario, LocalDate dataRealizacao, Integer golsPro, Integer golsContra, Set<PartidaJogadorVM> jogadoresGols) {
+        this.id = id;
+        this.adversario = adversario;
+        this.dataRealizacao = dataRealizacao;
+        this.golsPro = golsPro;
+        this.golsContra = golsContra;
+        this.jogadoresGols = jogadoresGols;
     }
     
     public Long getId() {
