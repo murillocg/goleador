@@ -30,19 +30,10 @@ export class PartidaService {
       .catch(this.handleError);
   }
 
-  addPartida(partida: Partida): Observable<Partida[]> {
+  savePartida(partida: Partida): Observable<Partida[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(this.partidasUrl, partida, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  updatePartida(partida: Partida): Observable<Partida[]> {
-    let url = this.partidasUrl + '/' + partida.id.toString();
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(url, partida, options)
       .map(this.extractData)
       .catch(this.handleError);
   }

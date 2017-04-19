@@ -26,15 +26,9 @@ export class JogadorFormComponent implements OnInit {
 
   onSubmit(): void {
     this.updateLocalJogador();
-    if (this.editMode) {
-      this.jogadorService.updateJogador(this.jogador).subscribe(
-        jogadores => console.log(jogadores)
-      );
-    } else {
-      this.jogadorService.addJogador(this.jogador).subscribe(
-        jogadores => console.log(jogadores)
-      );
-    }
+    this.jogadorService.saveJogador(this.jogador).subscribe(
+      jogadores => console.log(jogadores)
+    );
     this.jogadorForm.reset();
     this.router.navigate(['/jogadores']);
   }
