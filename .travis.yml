@@ -8,7 +8,9 @@ language: java
 
 jdk:
   - oraclejdk8
-  
+
+install: true
+
 sudo: required
 
 cache:
@@ -16,6 +18,7 @@ cache:
     - $HOME/.m2
     
 script:
+  - mvn clean install
   - mvn clean package docker:build
 
 branches:
