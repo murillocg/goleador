@@ -43,7 +43,7 @@ export class JogadorService {
     let url = this.jogadoresUrl + '/' + jogador.id.toString();
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.put(url, jogador, options)
+    return this.http.post(url, jogador, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
