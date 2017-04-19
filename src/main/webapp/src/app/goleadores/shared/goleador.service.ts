@@ -22,38 +22,6 @@ export class GoleadorService {
       .catch(this.handleError);
   }
 
-  getGoleador(jogador: number): Observable<Goleador> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.get(this.goleadoresUrl + '/' + jogador.toString(), options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  addGoleador(goleador: Goleador): Observable<Goleador[]> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.goleadoresUrl, goleador, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  updateGoleador(goleador: Goleador): Observable<Goleador[]> {
-    let url = this.goleadoresUrl + '/' + goleador.jogador.toString();
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this.http.put(url, goleador, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  removeGoleador(goleador: Goleador): Observable<Goleador[]> {
-    let url = this.goleadoresUrl + '/' + goleador.jogador.toString();
-    return this.http.delete(url)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
   private extractData(response: Response) {
     let body = response.json();
     return body;
