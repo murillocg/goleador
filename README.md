@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/murillocg/goleador.svg?branch=master)](https://travis-ci.org/murillocg/goleador)
-[![Coverage Status](https://coveralls.io/repos/github/murillocg/goleador/badge.svg?branch=master)](https://coveralls.io/github/murillocg/goleador?branch=master)
+[![codecov](https://codecov.io/gh/murillocg/goleador/branch/master/graph/badge.svg)](https://codecov.io/gh/murillocg/goleador)
 
 # GoleadorApp
 

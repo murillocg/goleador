@@ -130,14 +130,6 @@ public class PartidaResourceIntTest {
 
     @Test
     @Transactional
-    public void getOneNonExisting() throws Exception {
-        // Get the entity
-        restMockMvc.perform(get("/api/partidas/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    @Transactional
     public void deleteOne() throws Exception {
         // Initialize the database
         Set<PartidaJogadorVM> jogadoresPartida = new HashSet<>();
