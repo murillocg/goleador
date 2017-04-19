@@ -24,9 +24,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import org.springframework.http.MediaType;
 
 /**
  * Test class for the PartidaResource REST controller.
@@ -147,5 +149,44 @@ public class PartidaResourceIntTest {
         List<Partida> partidas = partidaRepository.findAll();
         assertThat(partidas).hasSize(databaseSizeBeforeDelete - 1);
     }
+    
+    @Test
+    @Transactional
+    public void getAll() throws Exception {
+        // Initialize the database
+        Set<PartidaJogadorVM> jogadoresPartida = new HashSet<>();
+        jogadoresPartida.add(new PartidaJogadorVM(jogadorFulano.getId(), 5));
+        jogadoresPartida.add(new PartidaJogadorVM(jogadorBeltrano.getId(), 5));
+        partida.setJogadoresGols(jogadoresPartida);
+        Partida partidaEntity = partidaService.createPartida(partida);
+
+        // Get all the list
+        restMockMvc.perform(get("/api/partidas"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(partidaEntity.getId().intValue())))
+            .andExpect(jsonPath("$.[*].adversario").value(hasItem(partidaEntity.getAdversario())))
+            .andExpect(jsonPath("$.[*].golsPro").value(hasItem(partidaEntity.getGolsPro())))
+            .andExpect(jsonPath("$.[*].golsContra").value(hasItem(partidaEntity.getGolsContra())))
+            .andExpect(jsonPath("$.[*].jogadoresGols.[*].jogadorId").value(hasItem(jogadorFulano.getId().intValue())))
+            .andExpect(jsonPath("$.[*].jogadoresGols.[*].gols").value(hasItem(5)));        
+    }
+    
+    @Test
+    @Transactional
+    public void checkInvalidSumGols() throws Exception {
+        
+        Set<PartidaJogadorVM> jogadoresPartida = new HashSet<>();
+        jogadoresPartida.add(new PartidaJogadorVM(jogadorFulano.getId(), 1));
+        jogadoresPartida.add(new PartidaJogadorVM(jogadorBeltrano.getId(), 1));
+        partida.setJogadoresGols(jogadoresPartida);
+
+        restMockMvc.perform(
+                post("/api/partidas")
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(TestUtil.convertObjectToJsonBytes(partida)))
+                .andExpect(status().isBadRequest());        
+    }
+    
 
 }
