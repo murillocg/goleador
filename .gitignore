@@ -1,3 +1,19 @@
+######################
+# Project Specific
+######################
+/target/www/**
+/src/test/javascript/coverage/
+/src/test/javascript/PhantomJS*/
+
+######################
+# Node
+######################
+/node/
+node_tmp/
+node_modules/
+npm-debug.log.*
+
+### Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -28,3 +44,9 @@ nbdist/
 /node_modules
 /dist
 /src/main/resources/static/
+
+### Package Files
+*.jar
+*.war
+*.ear
+*.db
