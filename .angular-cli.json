@@ -1,22 +1,21 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
     "name": "goleador"
   },
   "apps": [
     {
-      "root": "src",
-      "outDir": "../resources/static",
+      "root": "src/main/webapp/",
+      "outDir": "target/www/app",
       "assets": [
         "assets",
         "favicon.ico"
       ],
       "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
+      "main": "app/main.ts",
+      "polyfills": "app/polyfills.ts",
+      "test": "app/test.ts",
+      "tsconfig": "../../../tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "gol",
       "styles": [
         "styles.css",
@@ -24,11 +23,7 @@
         "../node_modules/font-awesome/css/font-awesome.css"
       ],
       "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      }
+      "environments": {}
     }
   ],
   "e2e": {
