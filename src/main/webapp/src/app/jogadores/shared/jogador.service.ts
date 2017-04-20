@@ -64,6 +64,10 @@ export class JogadorService {
           errorMsg = 'Já existe um jogador com esse nome cadastrado!';
           break;
         }
+        case 'error.scored': {
+          errorMsg = 'O jogador já marcou gols pela equipe!';
+          break;
+        }
         default: {
           errorMsg = 'Erro não mapeado!';
         }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 
 import { Jogador } from './shared/jogador.model';
 import { JogadorFilterService } from './shared/jogador-filter.service';
@@ -14,6 +14,8 @@ export class JogadoresComponent implements OnInit {
 
   filteredJogadores: Jogador[];
   jogadores: Jogador[];
+  serverError: boolean;
+  errorMessage: string;
 
   constructor(private jogadorService: JogadorService,
               private jogadorFilterService: JogadorFilterService,
@@ -29,11 +31,18 @@ export class JogadoresComponent implements OnInit {
 
   removeJogador(jogador: Jogador): void {
     this.jogadorService.removeJogador(jogador).subscribe(
-      jogadores => console.log(jogadores)
+      () => this.removeJogadorLocally(jogador),
+      error =>  this.openAlert(error)
     );
   }
 
+  closeAlert(): void {
+    this.serverError = false;
+    this.errorMessage = '';
+  }
+
   ngOnInit(): void {
+    this.closeAlert();
     this.getJogadores();
   }
 
@@ -44,5 +53,17 @@ export class JogadoresComponent implements OnInit {
         this.filteredJogadores = jogadores;
       }
     );
+  }
+
+  private removeJogadorLocally(jogador: Jogador): void {
+    const indexOriginal = this.jogadores.indexOf(jogador);
+    const indexFiltered = this.filteredJogadores.indexOf(jogador);
+    this.jogadores.splice(indexOriginal, 1);
+    this.filteredJogadores.splice(indexFiltered, 1);
+  }
+
+  private openAlert(errorMessage: string): void {
+    this.serverError = true;
+    this.errorMessage = errorMessage;
   }
 }
