@@ -11,4 +11,10 @@
     <button type="button" class="btn btn-danger" routerLink="/jogadores">Cancelar</button>
     <button type="submit" class="btn btn-success" [disabled]="!jogadorForm.valid">Salvar</button>
   </form>
+  <div *ngIf="serverError">
+    <br>
+    <ngb-alert type="danger" [dismissible]="false">
+      {{ errorMessage }}
+    </ngb-alert>
+  </div>
 </div>
