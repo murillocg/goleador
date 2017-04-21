@@ -94,13 +94,9 @@
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
 
-"@types/selenium-webdriver@2.53.33":
+"@types/selenium-webdriver@2.53.33", "@types/selenium-webdriver@~2.53.31":
   version "2.53.33"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.33.tgz#64672bae3acedf9d9e6bcfa8bdb7c37497751c3d"
-
-"@types/selenium-webdriver@~2.53.31":
-  version "2.53.42"
-  resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.42.tgz#74cb77fb6052edaff2a8984ddafd88d419f25cac"
 
 abbrev@1, abbrev@1.0.x:
   version "1.0.9"

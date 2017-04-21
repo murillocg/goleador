@@ -5,9 +5,7 @@
 /src/test/javascript/coverage/
 /src/test/javascript/PhantomJS*/
 
-######################
-# Node
-######################
+### Node
 /node/
 node_tmp/
 node_modules/
@@ -50,3 +48,17 @@ nbdist/
 *.war
 *.ear
 *.db
+
+### Directories
+/build/
+/bin/
+/deploy/
+
+### Logs
+*.log
+
+### Others
+*.class
+*.*~
+*~
+.merge_file*

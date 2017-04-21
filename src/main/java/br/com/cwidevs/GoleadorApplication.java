@@ -1,5 +1,6 @@
 package br.com.cwidevs;
 
+import br.com.cwidevs.config.DefaultProfileUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GoleadorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GoleadorApplication.class, args);
+        SpringApplication app = new SpringApplication(GoleadorApplication.class);
+        DefaultProfileUtil.addDefaultProfile(app);
+        app.run(args);
     }
 
 }
