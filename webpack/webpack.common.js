@@ -15,7 +15,7 @@ module.exports = function (options) {
         entry: {
             'polyfills': './src/main/webapp/app/polyfills',
             'global': './src/main/webapp/content/scss/global.scss',
-            'main': './src/main/webapp/app/main'
+            'main': './src/main/webapp/app/app.main'
         },
         resolve: {
             extensions: ['.ts', '.js'],
@@ -60,18 +60,7 @@ module.exports = function (options) {
                         'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
                         'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
                     ]
-                },
-                {
-                    test: /app.constants.ts$/,
-                    loader: StringReplacePlugin.replace({
-                        replacements: [{
-                            pattern: /\/\* @toreplace (\w*?) \*\//ig,
-                            replacement: function (match, p1, offset, string) {
-                                return `_${p1} = ${DATAS[p1]};`;
-                            }
-                        }
-                    ]})
-                }
+                }                
             ]
         },
         plugins: [
@@ -83,11 +72,7 @@ module.exports = function (options) {
                 manifest: require(path.resolve('./target/www/vendor.json')),
             }),
             new CopyWebpackPlugin([
-                { from: './node_modules/swagger-ui/dist', to: 'swagger-ui/dist' },
-                { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
-                { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
-                { from: './src/main/webapp/robots.txt', to: 'robots.txt' },
-                { from: './src/main/webapp/i18n', to: 'i18n' }
+                { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' }
             ]),
             new webpack.ProvidePlugin({
                 $: "jquery",
