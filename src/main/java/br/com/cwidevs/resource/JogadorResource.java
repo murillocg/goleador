@@ -29,6 +29,7 @@ public class JogadorResource {
 
     @Autowired
     private JogadorRepository jogadorRepository;
+
     @Autowired
     private PartidaRepository partidaRepository;
 
@@ -51,7 +52,7 @@ public class JogadorResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (partidaRepository.findOneByJogadoresGolsIdJogador(id).isPresent()) {
+        if (partidaRepository.findOneByJogadoresGolsIdJogadorId(id).isPresent()) {
           return ResponseEntity.badRequest()
              .headers(HeaderUtil.createFailureAlert("jogador", "scored", "Jogador already scored"))
              .body(null);
