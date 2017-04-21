@@ -52,7 +52,7 @@ public class JogadorResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (partidaRepository.findOneByJogadoresGolsIdJogadorId(id).isPresent()) {
+        if (partidaRepository.findFirstByJogadoresGolsIdJogadorId(id).isPresent()) {
           return ResponseEntity.badRequest()
              .headers(HeaderUtil.createFailureAlert("jogador", "scored", "Jogador already scored"))
              .body(null);

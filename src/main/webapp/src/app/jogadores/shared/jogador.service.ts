@@ -43,7 +43,6 @@ export class JogadorService {
   removeJogador(jogador: Jogador): Observable<Jogador[]> {
     const url = this.jogadoresUrl + '/' + jogador.id.toString();
     return this.http.delete(url)
-      .map(this.extractData)
       .catch(this.handleError);
   }
 
@@ -65,7 +64,7 @@ export class JogadorService {
           break;
         }
         case 'error.scored': {
-          errorMsg = 'O jogador já marcou gols pela equipe!';
+          errorMsg = 'O jogador já marcou gol(s) pela equipe!';
           break;
         }
         default: {

@@ -60,6 +60,7 @@ export class JogadoresComponent implements OnInit {
     const indexFiltered = this.filteredJogadores.indexOf(jogador);
     this.jogadores.splice(indexOriginal, 1);
     this.filteredJogadores.splice(indexFiltered, 1);
+    this.closeAlert();
   }
 
   private openAlert(errorMessage: string): void {

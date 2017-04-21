@@ -16,6 +16,6 @@ public interface PartidaRepository extends JpaRepository<Partida, Long> {
     @Query("select new br.com.cwidevs.dto.Goleador(j.id, sum(pj.gols)) from PartidaJogador pj join pj.id.jogador j group by j")
     public List<Goleador> getGoleadores();
 
-    Optional<Partida> findOneByJogadoresGolsIdJogadorId(long id);
+    Optional<Partida> findFirstByJogadoresGolsIdJogadorId(long id);
 
 }
