@@ -2,6 +2,7 @@ package br.com.cwidevs.resource;
 
 import br.com.cwidevs.domain.Jogador;
 import br.com.cwidevs.repository.JogadorRepository;
+import br.com.cwidevs.repository.PartidaRepository;
 import br.com.cwidevs.resource.util.HeaderUtil;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,16 +26,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/jogadores", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class JogadorResource {
-    
+
     @Autowired
     private JogadorRepository jogadorRepository;
-    
+
+    @Autowired
+    private PartidaRepository partidaRepository;
+
     @GetMapping
     public ResponseEntity<List<Jogador>> getAll() {
         List<Jogador> result = jogadorRepository.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-    
+
     @PostMapping
     public ResponseEntity<Jogador> createOrUpdate(@Valid @RequestBody Jogador jogador) {
         if (jogadorRepository.findOneByNome(jogador.getNome()).isPresent()) {
@@ -44,14 +48,19 @@ public class JogadorResource {
         }
         Jogador result = jogadorRepository.save(jogador);
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }    
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
+        if (partidaRepository.findFirstByJogadoresGolsIdJogadorId(id).isPresent()) {
+          return ResponseEntity.badRequest()
+             .headers(HeaderUtil.createFailureAlert("jogador", "scored", "Jogador already scored"))
+             .body(null);
+        }
         jogadorRepository.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Jogador> get(@PathVariable Long id) {
         Jogador result = jogadorRepository.findOne(id);
@@ -59,5 +68,5 @@ public class JogadorResource {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }    
+    }
 }
