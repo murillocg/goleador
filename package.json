@@ -18,15 +18,17 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.22",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
+    "jquery": "3.1.1",    
     "font-awesome": "^4.7.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0",
-    "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
+    "add-asset-html-webpack-plugin": "1.0.2",
+    "angular-cli": "1.0.0-beta.26",
+    "angular2-template-loader": "0.6.0",        
     "awesome-typescript-loader": "3.0.0-beta.18",
     "browser-sync": "2.18.6",
     "browser-sync-webpack-plugin": "1.1.3",
@@ -80,14 +82,17 @@
     "node-sass": "3.13.0",
     "postcss-loader": "1.2.0",
     "yargs": "6.6.0"
-  },  
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  }, 
   "scripts": {
     "lint": "tslint src/main/webapp/app/**/*.ts --force",
     "start": "yarn run webpack:dev",
     "webpack:build": "webpack --config webpack/webpack.vendor.js && webpack --config webpack/webpack.dev.js",
     "webpack:build:dev": "webpack --config webpack/webpack.dev.js",
     "webpack:dev": "webpack-dev-server --config webpack/webpack.dev.js  --progress --inline --hot --profile --port=9060",
-    "webpack:prod": "yarn test && webpack -p --config webpack/webpack.vendor.js && webpack -p --config webpack/webpack.prod.js",
+    "webpack:prod": "webpack -p --config webpack/webpack.vendor.js && webpack -p --config webpack/webpack.prod.js",
     "test": "yarn run lint && karma start src/test/javascript/karma.conf.js",
     "test:watch": "karma start --watch",
     "e2e": "protractor src/test/javascript/protractor.conf.js"
