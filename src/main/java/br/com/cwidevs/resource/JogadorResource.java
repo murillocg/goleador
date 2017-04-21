@@ -6,6 +6,7 @@ import br.com.cwidevs.repository.PartidaRepository;
 import br.com.cwidevs.resource.util.HeaderUtil;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,8 @@ public class JogadorResource {
 
     @PostMapping
     public ResponseEntity<Jogador> createOrUpdate(@Valid @RequestBody Jogador jogador) {
-        if (jogadorRepository.findOneByNome(jogador.getNome()).isPresent()) {
+        Optional<Jogador> sameNome = jogadorRepository.findOneByNome(jogador.getNome());
+        if (sameNome.isPresent() && !jogador.equals(sameNome.get())) {
              return ResponseEntity.badRequest()
                 .headers(HeaderUtil.createFailureAlert("jogador", "nameexists", "Name already in use"))
                 .body(null);
