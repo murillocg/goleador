@@ -2,19 +2,16 @@ package br.com.cwidevs.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -46,7 +43,7 @@ public class Partida implements Serializable {
     @Column(name = "gols_contra")
     private Integer golsContra;
 
-    @OneToMany(mappedBy = "id.partida")
+    @OneToMany(mappedBy = "id.partida", fetch = FetchType.EAGER)
     private Set<PartidaJogador> jogadoresGols = new HashSet<>();
 
     public Long getId() {

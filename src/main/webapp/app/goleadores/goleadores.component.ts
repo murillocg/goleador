@@ -25,7 +25,7 @@ export class GoleadoresComponent implements OnInit {
   private getGoleadores(): void {
     this.goleadorService.getGoleadores().subscribe(
       goleadores => this.goleadores = goleadores
-    )
+    );
   }
 
   private getJogadores(): void {

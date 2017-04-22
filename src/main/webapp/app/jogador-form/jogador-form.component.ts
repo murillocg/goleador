@@ -50,7 +50,7 @@ export class JogadorFormComponent implements OnInit {
     let id: number;
     this.activatedRoute.params.forEach((params: Params) => {
       id = +params['id'];
-    })
+    });
     if (id) {
       this.editMode = true;
       this.title = 'Alteração de jogador';

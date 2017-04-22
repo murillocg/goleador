@@ -34,7 +34,7 @@ export class PartidasComponent implements OnInit {
   private getJogadores(): void {
     this.jogadorService.getJogadores().subscribe(
       jogadores => this.jogadores = jogadores
-    )
+    );
   }
 
   private getNome(jogadorGols: JogadorGols): string {
