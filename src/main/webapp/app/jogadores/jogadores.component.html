@@ -34,4 +34,10 @@
       </tr>
     </tbody>
   </table>
+  <div *ngIf="serverError">
+    <br>
+    <ngb-alert type="danger" (close)="closeAlert()">
+      {{ errorMessage }}
+    </ngb-alert>
+  </div>
 </div>

@@ -17,6 +17,8 @@ export class JogadorFormComponent implements OnInit {
 
   jogadorForm: FormGroup;
   title: string;
+  serverError: boolean;
+  errorMessage: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,17 +28,17 @@ export class JogadorFormComponent implements OnInit {
 
   onSubmit(): void {
     this.updateLocalJogador();
-    if (this.editMode) {
-      this.jogadorService.updateJogador(this.jogador).subscribe(
-        jogadores => console.log(jogadores)
-      );
-    } else {
-      this.jogadorService.addJogador(this.jogador).subscribe(
-        jogadores => console.log(jogadores)
-      );
-    }
-    this.jogadorForm.reset();
-    this.router.navigate(['/jogadores']);
+    this.jogadorService.saveJogador(this.jogador).subscribe(
+      jogadores => {
+        console.log(jogadores);
+        this.jogadorForm.reset();
+        this.router.navigate(['/jogadores']);
+      },
+      error => {
+        this.serverError = true;
+        this.errorMessage = error;
+      }
+    );
   }
 
   private updateLocalJogador(): void {
@@ -44,6 +46,8 @@ export class JogadorFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.serverError = false;
+    this.errorMessage = '';
     this.jogador = new Jogador();
     this.editMode = false;
     this.title = 'Inclusão de jogador';
