@@ -21,7 +21,7 @@ public class GoleadorResource {
     private PartidaRepository repository;
     
     @GetMapping
-    private List<Goleador> getAll() {
+    public List<Goleador> getAll() {
         return repository.getGoleadores();
     }
 }
