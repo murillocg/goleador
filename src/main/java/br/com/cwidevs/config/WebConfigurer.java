@@ -25,32 +25,28 @@ public class WebConfigurer implements EmbeddedServletContainerCustomizer {
         // When running in an IDE or with ./mvnw spring-boot:run, set location of the static web assets.
         setLocationForStaticAssets(container);
     }
-    
+
     private void setLocationForStaticAssets(ConfigurableEmbeddedServletContainer container) {
         File root;
         String prefixPath = resolvePathPrefix();
-//        if (env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
-//            root = new File(prefixPath + "target/www/");
-//        } else {
-            root = new File(prefixPath + "src/main/webapp/src");
-//        }
+        root = new File(prefixPath + "target/www/");
         if (root.exists() && root.isDirectory()) {
             container.setDocumentRoot(root);
         }
     }
 
     /**
-     *  Resolve path prefix to static resources.
+     * Resolve path prefix to static resources.
      */
     private String resolvePathPrefix() {
         String fullExecutablePath = this.getClass().getResource("").getPath();
         String rootPath = Paths.get(".").toUri().normalize().getPath();
         String extractedPath = fullExecutablePath.replace(rootPath, "");
         int extractionEndIndex = extractedPath.indexOf("target/");
-        if(extractionEndIndex <= 0) {
+        if (extractionEndIndex <= 0) {
             return "";
         }
         return extractedPath.substring(0, extractionEndIndex);
-    }    
-    
+    }
+
 }
