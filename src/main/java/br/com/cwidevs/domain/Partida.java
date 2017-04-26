@@ -121,4 +121,9 @@ public class Partida implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Partida{" + "id=" + id + ", adversario=" + adversario + ", dataRealizacao=" + dataRealizacao + ", golsPro=" + golsPro + ", golsContra=" + golsContra + ", jogadoresGols=" + jogadoresGols + '}';
+    }
+
 }

@@ -33,5 +33,10 @@ public class Goleador {
     public void setTotalGols(Long totalGols) {
         this.totalGols = totalGols;
     }
+
+    @Override
+    public String toString() {
+        return "Goleador{" + "jogador=" + jogador + ", totalGols=" + totalGols + '}';
+    }
     
 }

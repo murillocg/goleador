@@ -69,7 +69,7 @@ public class PartidaJogadorPK implements Serializable {
     
     @Override
     public String toString() {
-        return "PartidaJogadorPK{" + "partida=" + partida + ", jogador=" + jogador + '}';
+        return "PartidaJogadorPK{" + "partida=" + partida.getId() + ", jogador=" + jogador.getId() + '}';
     }
     
 }

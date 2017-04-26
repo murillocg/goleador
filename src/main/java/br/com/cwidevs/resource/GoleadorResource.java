@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoleadorResource {
 
     @Autowired
-    private PartidaRepository repository;
+    private PartidaRepository partidaRepository;
     
     @GetMapping
     public List<Goleador> getAll() {
-        return repository.getGoleadores();
+        return partidaRepository.getGoleadores();
     }
 }

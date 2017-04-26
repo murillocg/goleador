@@ -1,6 +1,5 @@
 package br.com.cwidevs.resource;
 
-import br.com.cwidevs.domain.PartidaJogador;
 import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.repository.PartidaRepository;
 import br.com.cwidevs.resource.vm.PartidaJogadorVM;

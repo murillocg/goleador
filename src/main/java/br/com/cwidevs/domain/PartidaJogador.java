@@ -38,5 +38,9 @@ public class PartidaJogador implements Serializable {
         this.gols = gols;
     }
 
+    @Override
+    public String toString() {
+        return "PartidaJogador{" + "id=" + id + ", gols=" + gols + '}';
+    }
         
 }

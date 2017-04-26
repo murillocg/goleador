@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import org.springframework.http.MediaType;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 /**
  * Test class for the PartidaResource REST controller.
@@ -142,8 +143,9 @@ public class PartidaResourceIntTest {
 
         int databaseSizeBeforeDelete = partidaRepository.findAll().size();
         
-        restMockMvc.perform(delete("/api/partidas/{id}", partidaEntity.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+        restMockMvc.perform(
+                delete("/api/partidas/{id}", partidaEntity.getId())
+                    .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNoContent());
 
         List<Partida> partidas = partidaRepository.findAll();
@@ -163,6 +165,7 @@ public class PartidaResourceIntTest {
         // Get all the list
         restMockMvc.perform(get("/api/partidas"))
             .andExpect(status().isOk())
+                .andDo(print())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(partidaEntity.getId().intValue())))
             .andExpect(jsonPath("$.[*].adversario").value(hasItem(partidaEntity.getAdversario())))
