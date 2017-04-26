@@ -165,7 +165,6 @@ public class PartidaResourceIntTest {
         // Get all the list
         restMockMvc.perform(get("/api/partidas"))
             .andExpect(status().isOk())
-                .andDo(print())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(partidaEntity.getId().intValue())))
             .andExpect(jsonPath("$.[*].adversario").value(hasItem(partidaEntity.getAdversario())))

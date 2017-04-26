@@ -11,28 +11,7 @@ public final class HeaderUtil {
 
     private static final Logger log = LoggerFactory.getLogger(HeaderUtil.class);
 
-    private static final String APPLICATION_NAME = "goleador";
-
     private HeaderUtil() {
-    }
-
-    public static HttpHeaders createAlert(String message, String param) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("X-goleador-alert", message);
-        headers.add("X-goleador-params", param);
-        return headers;
-    }
-
-    public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createAlert(APPLICATION_NAME + "." + entityName + ".created", param);
-    }
-
-    public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createAlert(APPLICATION_NAME + "." + entityName + ".updated", param);
-    }
-
-    public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createAlert(APPLICATION_NAME + "." + entityName + ".deleted", param);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
