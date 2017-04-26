@@ -1,0 +1,21 @@
+version: '3'
+services:
+    app:
+        image: murillocg/goleador:snapshot
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/goleador
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+        depends_on:
+            - db
+    db:
+        image: postgres:9.5.4
+        # volumes:
+        #     - ~/volumes/jhipster/goleador/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=goleador
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
