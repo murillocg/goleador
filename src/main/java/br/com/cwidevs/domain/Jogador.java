@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -17,7 +18,8 @@ import javax.validation.constraints.NotNull;
 public class Jogador implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "jogador_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jogador_id_seq")
     private Long id;
     
     @NotNull

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +24,8 @@ import javax.validation.constraints.NotNull;
 public class Partida implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "partida_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "partida_id_seq")
     private Long id;
 
     @NotNull
