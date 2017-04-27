@@ -4,6 +4,7 @@ import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.dto.Goleador;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,7 +14,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface PartidaRepository extends JpaRepository<Partida, Long> {
 
-    @Query("select new br.com.cwidevs.dto.Goleador(j.id, sum(pj.gols)) from PartidaJogador pj join pj.id.jogador j group by j")
+    @Query("select new br.com.cwidevs.dto.Goleador(j.id, sum(pj.gols)) from PartidaJogador pj join pj.id.jogador j group by j.id order by sum(pj.gols) desc")
     public List<Goleador> getGoleadores();
 
     Optional<Partida> findFirstByJogadoresGolsIdJogadorId(long id);

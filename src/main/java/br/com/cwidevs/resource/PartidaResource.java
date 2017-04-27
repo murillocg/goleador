@@ -2,13 +2,20 @@ package br.com.cwidevs.resource;
 
 import br.com.cwidevs.domain.Partida;
 import br.com.cwidevs.repository.PartidaRepository;
+import br.com.cwidevs.resource.util.PaginationUtil;
 import br.com.cwidevs.resource.vm.PartidaJogadorVM;
 import br.com.cwidevs.resource.vm.PartidaVM;
 import br.com.cwidevs.service.PartidaService;
+import java.net.URISyntaxException;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +42,16 @@ public class PartidaResource {
     private PartidaService partidaService;
 
     @GetMapping
-    public ResponseEntity<List<PartidaVM>> getAll() {
-        List<PartidaVM> partidaVMs = partidaRepository.findAll()
+    public ResponseEntity<List<PartidaVM>> getAll(@PageableDefault(sort = { "dataRealizacao" }, direction = Direction.DESC) Pageable pageable) throws URISyntaxException {
+        Page<Partida> page = partidaRepository.findAll(pageable);  
+        
+        List<PartidaVM> partidaVMs = page.getContent()
                 .stream()
                 .map(PartidaVM::new)
                 .collect(toList());
         
-        return new ResponseEntity<>(partidaVMs, HttpStatus.OK);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/partidas");
+        return new ResponseEntity<>(partidaVMs, headers, HttpStatus.OK);
     }
 
     @PostMapping

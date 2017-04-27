@@ -4,11 +4,17 @@ import br.com.cwidevs.domain.Jogador;
 import br.com.cwidevs.repository.JogadorRepository;
 import br.com.cwidevs.repository.PartidaRepository;
 import br.com.cwidevs.resource.util.HeaderUtil;
+import br.com.cwidevs.resource.util.PaginationUtil;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +41,10 @@ public class JogadorResource {
     private PartidaRepository partidaRepository;
 
     @GetMapping
-    public ResponseEntity<List<Jogador>> getAll() {
-        List<Jogador> result = jogadorRepository.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<List<Jogador>> getAll(@PageableDefault(sort = { "nome" }, direction = Direction.ASC) Pageable pageable) throws URISyntaxException {
+        Page<Jogador> page = jogadorRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/jogadores");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     @PostMapping
