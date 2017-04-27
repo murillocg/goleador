@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author murillo.goulart
  */
 @RestController
-@RequestMapping(path = "/api/jogadores", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "/jogadores", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class JogadorResource {
 
     @Autowired

@@ -36,9 +36,6 @@ spring:
         database: H2
         show-sql: true
 
-server:
-    port: 8080
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author murillo.goulart
  */
 @RestController
-@RequestMapping(path = "/api/partidas", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "/partidas", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class PartidaResource {
 
     @Autowired

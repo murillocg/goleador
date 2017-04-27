@@ -13,6 +13,11 @@
 # Full reference is available at:
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
+server:
+  port: 8080    
+  contextPath: /api
+  session:
+    timeout: 1800
 
 spring:
     application:
